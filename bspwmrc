@@ -1,0 +1,27 @@
+#! /bin/sh
+
+pgrep -x sxhkd > /dev/null || sxhkd &
+
+bspc monitor -d MAIN DEV WEB DOC LSR SVR
+
+bspc config border_width         1
+bspc config window_gap          5
+
+bspc config split_ratio          0.52
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+
+bspc rule -a Gimp desktop='^8' state=floating follow=on
+bspc rule -a Chromium desktop='^2'
+bspc rule -a mplayer2 state=floating
+bspc rule -a Kupfer.py focus=on
+bspc rule -a Screenkey manage=off
+
+# Auto-Start Programs:
+
+# Comprobar si Picom ya está en ejecución antes de iniciarlo
+pgrep -x picom > /dev/null || picom --config /home/panchita/.config/picom/picom.conf --no-vsync&
+
+polybar &
+xrandr --output HDMI-1 --mode 1920x1080 --brightness 1 --off
+feh --bg-scale /home/panchita/Images/S9l3Wg.jpg
